@@ -56,7 +56,7 @@ int		get_next_line(int fd, char **line)
 				break ;
 		}
 	}
-	if (sz_read < 0 || fd < 0 || line == NULL) // Check conditions here ???
+	if (sz_read < 0 || line == NULL)
 		return (-1);
 	str = ft_strcut_before(ft_strcpy_woc(str, line, '\n'), str);
 	if (sz_read == 0 && !str[0])
