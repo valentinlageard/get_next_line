@@ -9,6 +9,14 @@ char	*ft_strcut_before(int i, char *str)
 	char	*tmp;
 	
 	j = 0;
+	if ((ft_strlen(str) - i) == 0)
+	{
+		if (!(tmp = (char *)malloc(sizeof(char))))
+			return (NULL);
+		tmp[0] = 0;
+		free(str);
+		return (tmp);
+	}
 	if (!(tmp = (char *)malloc((ft_strlen(str) - i) * sizeof(char))))
 		return (NULL);
 	while (str[i + j + 1])
@@ -24,21 +32,28 @@ char	*ft_strcut_before(int i, char *str)
 int		ft_strcpy_woc(char *str, char **line, char c)
 {
 	int		i;
+	char    *dup;
 
 	i = 0;
 	while (str[i] && str[i] != c)
+		i++;
+	if (!(dup = (char *)malloc((i + 1) * sizeof(char))))
+		return (-1);
+	i = 0;
+	while (str[i] && str[i] != c)
 	{
-		line[0][i] = str[i];
+		dup[i] = str[i];
 		i++;
 	}
-	line[0][i] = 0;
+	dup[i] = 0;
+	*line = dup;
 	return (i);
 }
 
 int		get_next_line(int fd, char **line)
 {
 	static char	*str;
-	int			sz_read;
+	static int	sz_read;
 	char		buff[BUFFER_SIZE + 1];
 	char		*tmp;
 	
@@ -56,7 +71,7 @@ int		get_next_line(int fd, char **line)
 				break ;
 		}
 	}
-	if (sz_read < 0 || line == NULL)
+	if (sz_read < 0)
 		return (-1);
 	str = ft_strcut_before(ft_strcpy_woc(str, line, '\n'), str);
 	if (sz_read == 0 && !str[0])
