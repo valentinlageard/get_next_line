@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlageard <vlageard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/27 18:16:22 by vlageard          #+#    #+#             */
+/*   Updated: 2019/11/27 18:16:32 by vlageard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 #include "get_next_line.h"
 
 char	*ft_strcut_before(int i, char *str)
 {
 	int		j;
 	char	*tmp;
-	
+
 	j = 0;
 	if ((ft_strlen(str) - i) == 0)
 	{
@@ -32,7 +43,7 @@ char	*ft_strcut_before(int i, char *str)
 int		ft_strcpy_woc(char *str, char **line, char c)
 {
 	int		i;
-	char    *dup;
+	char	*dup;
 
 	i = 0;
 	while (str[i] && str[i] != c)
@@ -56,7 +67,7 @@ int		get_next_line(int fd, char **line)
 	static int	sz_read;
 	char		buff[BUFFER_SIZE + 1];
 	char		*tmp;
-	
+
 	if (!str)
 		str = ft_strdup("");
 	if (!ft_strchr(str, '\n'))
