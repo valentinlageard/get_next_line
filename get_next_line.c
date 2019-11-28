@@ -6,13 +6,20 @@
 /*   By: vlageard <vlageard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 18:16:22 by vlageard          #+#    #+#             */
-/*   Updated: 2019/11/27 18:16:32 by vlageard         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:57:28 by vlageard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include "get_next_line.h"
+
+int		ret_free_str(int ret, char *str)
+{
+	free(str);
+	return (ret);
+}
 
 char	*ft_strcut_before(int i, char *str)
 {
@@ -83,9 +90,9 @@ int		get_next_line(int fd, char **line)
 		}
 	}
 	if (sz_read < 0)
-		return (-1);
+		return (ret_free_str(-1, str));
 	str = ft_strcut_before(ft_strcpy_woc(str, line, '\n'), str);
 	if (sz_read == 0 && !str[0])
-		return (0);
+		return (ret_free_str(0, str));
 	return (1);
 }
